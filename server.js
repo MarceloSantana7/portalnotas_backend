@@ -20,7 +20,7 @@ app.get('/api/dados', async (req, res) => {
     const { periodoInicial, periodoFinal, empresa, tipoLista } = req.query; // Supondo que esses dados venham como query params
 
     try {
-        const url = `https://baveracruz.dcfiorilli.com.br:879/Transparencia/versaoJson/Despesas/?Listagem=DespesasporExigibilidade&DiaInicioPeriodo=${periodoInicial}&DiaFinalPeriodo=${periodoFinal}&strTipoLista=${tipoLista}&Empresa=${empresa}`;
+        const url = `https://baelos3.dcfiorilli.com.br:879/transparencia/versaoJson/Despesas/?Listagem=DespesasporExigibilidade&DiaInicioPeriodo=${periodoInicial}&DiaFinalPeriodo=${periodoFinal}&strTipoLista=${tipoLista}&Empresa=${empresa}`;
 
         const response = await axios.get(url);
         res.json(response.data); // Envia os dados da API externa de volta ao cliente
