@@ -29,3 +29,20 @@ app.get('/api/dados', async (req, res) => {
         res.status(500).send('Erro ao obter dados');
     }
 });
+
+app.get('/api/pagamento', async (req, res) => {
+    const { numeroEmpenho, tipoEmpenho, empresa, numeroPgto } = req.query;
+
+    if (!numeroEmpenho || !tipoEmpenho || !empresa || !numeroPgto) {
+        return res.status(400).send('Parâmetros ausentes. Envie numeroEmpenho, tipoEmpenho, empresa e numeroPgto.');
+    }
+
+    try {
+        const url = `https://baelos3.dcfiorilli.com.br:879/Transparencia/VersaoJson/Despesas/?Listagem=OrdemPagto_Cheques_PorNumeroEmpenho&intNumeroEmpenho=${numeroEmpenho}&strTipoEmpenho=${tipoEmpenho}&Empresa=${empresa}&strNumeroPagto=${numeroPgto}`;
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Erro ao fazer requisição à API externa:', error);
+        res.status(500).send('Erro ao obter dados do pagamento');
+    }
+});
